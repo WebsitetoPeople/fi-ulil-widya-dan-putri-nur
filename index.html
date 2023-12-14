@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="./resources/ol.css">
+        <link rel="stylesheet" href="resources/fontawesome-all.min.css">
+        <link rel="stylesheet" href="./resources/ol-layerswitcher.css">
+        <link rel="stylesheet" href="./resources/qgis2web.css">
+	<body>
+  <h1> PETA KOTA SURABAYA</h1>
+  <h2>KECAMATAN GENTENG, SIMOKERTO, DAN BUBUTAN</h2>
+  <h3>KELOMPOK 12 KELAS 2022 A</h3>
+  <h3>FI'ULIL KHABBI (22040274013) </h3>
+  <h3>WIDYA (22040274061)  </h3>
+  <h3>PUTRI NUR WAHYUNING (22040274109)  </h3>
+</body>
+<html>
+  <style>
+    h1 {
+    text-align: center; 
+    font-weight: bold; 
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  }
+  h2 {
+    text-align: center; 
+    font-weight: bold; 
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  }
+  </style>
+<style>
+.search-layer {
+  top: 65px;
+  left: .5em;
+}
+.ol-touch .search-layer {
+  top: 80px;
+}
+</style>
+        <style>
+        html, body {
+            background-color: #ffffff;
+        }
+        .ol-control button {
+            background-color: #f8f8f8 !important;
+            color: #000000 !important;
+            border-radius: 0px !important;
+        }
+        .ol-zoom, .geolocate, .gcd-gl-control .ol-control {
+            background-color: rgba(255,255,255,.4) !important;
+            padding: 3px !important;
+        }
+        .ol-scale-line {
+            background: none !important;
+        }
+        .ol-scale-line-inner {
+            border: 2px solid #f8f8f8 !important;
+            border-top: none !important;
+            background: rgba(255, 255, 255, 0.5) !important;
+            color: black !important;
+        }
+        </style>
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+            <div id="popup" class="ol-popup">
+                <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+                <div id="popup-content"></div>
+            </div>
+        </div>
+        <script src="resources/qgis2web_expressions.js"></script>
+        <script src="resources/polyfills.js"></script>
+        <script src="./resources/functions.js"></script>
+        <script src="./resources/ol.js"></script>
+        <script src="./resources/ol-layerswitcher.js"></script>
+        <script src="layers/pl2013_1.js"></script><script src="layers/jalan_2.js"></script>
+        <script src="styles/pl2013_1_style.js"></script><script src="styles/jalan_2_style.js"></script>
+        <script src="./layers/layers.js" type="text/javascript"></script> 
+        <script src="./resources/Autolinker.min.js"></script>
+        <script src="./resources/qgis2web.js"></script>
+    </body>
+	<html>
+<head>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+	<div style="width: 80%; margin: auto;">
+        <canvas id="perubahanLahanChart"></canvas>
+    </div>
+</body>
+<script>
+// Data perubahan penggunaan lahan
+         var dataPerubahanLahan = [
+            { jenis: 'PEMUKIMAN TERTATA ', pl2019: 85, pl2023: 85 },
+            { jenis: 'PEMUKIMAN TIDAK TERTATA', pl2019: 776, pl2023: 777 },
+            { jenis: 'STASIUN KERETA API', pl2019: 30, pl2023: 30 },
+            { jenis: 'PUSAT PERBELANJAAN', pl2019: 45, pl2023: 45 },
+            { jenis: 'INDUSTRI', pl2019: 21, pl2023: 22 },
+            { jenis: 'LAHAN KOSONG', pl2019: 11, pl2023: 11 },
+            { jenis: 'PENGINAPAN', pl2019: 8, pl2023: 8 },
+            { jenis: 'GDUNG NEGARA', pl2019: 6, pl2023: 6 },
+            { jenis: 'BALAI KOTA', pl2019: 5, pl2023: 5 },
+            { jenis: 'SEKOLAH', pl2019:5, pl2023: 5 },
+            { jenis: 'RUMAH SAKIT', pl2019: 4, pl2023: 4 },
+            { jenis: 'PEMAKAMAAN', pl2019: 23, pl2023: 21 },
+            // ... tambahkan data lainnya sesuai kebutuhan ...
+        ];
+
+        // Inisialisasi chart
+        var ctx = document.getElementById('perubahanLahanChart').getContext('2d');
+        var perubahanLahanChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: dataPerubahanLahan.map(item => item.jenis),
+                datasets: [{
+                    label: 'PL 2019',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1,
+                    data: dataPerubahanLahan.map(item => item.pl2019)
+                }, {
+                    label: 'PL 2023',
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1,
+                    data: dataPerubahanLahan.map(item => item.pl2023)
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+</script>
+</html>
+</html>
